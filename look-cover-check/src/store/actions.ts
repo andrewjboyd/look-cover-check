@@ -19,3 +19,9 @@ export function removeWord(word: string): WordAction {
         word
     }
 }
+
+export function startTest() {
+    return {
+        type: TypeKeys.START_TEST
+    }
+}

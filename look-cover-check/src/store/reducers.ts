@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { WordAction } from './actions';
 import { TypeKeys } from './constants';
+import WordState from './WordState';
 
 export const words = (state: string[] = [], action: WordAction) => {
     switch (action.type) {
@@ -18,7 +19,17 @@ export const words = (state: string[] = [], action: WordAction) => {
     return state;
 }
 
+export const test = (state: WordState = new WordState(), action: WordAction) => {
+    switch (action.type) {
+        case TypeKeys.START_TEST:
+            state.testStarted = true;             
+            break;        
+    }
+    return state;
+}
+
 const LCCApp = combineReducers({
+    test,
     words
 });
 

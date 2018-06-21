@@ -1,30 +1,15 @@
 import * as React from 'react';
-import './App.css';
-import Main from './Components/Main';
-import Processing from './Components/Processing';
+import { Route, Switch } from 'react-router-dom';
+import Configure from './Components/Configure';
+import Test from './Components/Test';
+import Words from './Components/Words';
 
-// import logo from './logo.svg';
-
-interface IAppState {
-  loading: boolean;
-}
-
-class App extends React.Component<{}, IAppState> {
-  constructor(props: {}) {
-    super(props);
-
-    this.state = {
-      loading: false
-    };
-  }
-
-  public render() {
-    return (
-      this.state.loading ?
-        <Processing /> :
-        <Main />
-    );
-  }
-}
+const App = () => (
+  <Switch>
+    <Route exact={true} path='/' component={Words}/>
+    <Route exact={true} path='/test' component={Test}/>
+    <Route exact={true} path='/configure' component={Configure}/>
+  </Switch>
+)
 
 export default App;

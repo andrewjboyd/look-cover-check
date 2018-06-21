@@ -5,7 +5,7 @@ import WordsNew from './containers/WordsNew';
 export default class Words extends React.Component<{}, {}> {
 
     public render() {
-        return <div>
+        return <div className="content">
             <h1>Word List</h1>
             <WordsNew />
             <WordList />

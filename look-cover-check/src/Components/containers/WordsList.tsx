@@ -1,7 +1,11 @@
 import { connect, Dispatch } from 'react-redux';
-import { removeWord } from '../../store/actions';
+import { startTest } from '../../store/actions';
 import WordState from '../../store/WordState';
 import WordsList from '../WordsList';
+
+interface IWordListActions {
+    onStartTest: (id: string) => void;
+}
 
 const mapStateToProps = (state: WordState) => {
     return {
@@ -9,11 +13,11 @@ const mapStateToProps = (state: WordState) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): IWordListActions => {
     return {
-        onDelete(word: string) {
+        onStartTest() {
             dispatch(
-                removeWord(word)
+                startTest()
             );
         }
     };

@@ -19,7 +19,9 @@ export default class WordsNew extends React.Component<IWordsNewProps, IWordsNewS
 
     public render() {
         return <div className="addRow">
-            <input type="textbox" id="word" onChange={this.newWordChange} /> <button type="button" onClick={this.addClick}>Add</button>
+            <form className="form-inline">
+                <input type="textbox" id="word" onChange={this.newWordChange} className="form-control" /> <button type="button" className="btn btn-secondary" onClick={this.addClick}>Add</button>
+            </form>
         </div>;
     }
 
