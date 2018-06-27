@@ -27,7 +27,7 @@ export const testStarted = (state: boolean = false, action: WordAction) => {
     return state;
 }
 
-export const testTimer = (state: number = 3, action: WordAction) => {
+export const initialTimerValue = (state: number = 3, action: WordAction) => {
     switch (action.type) {
         case TypeKeys.START_TEST:
             return 3;
@@ -61,8 +61,8 @@ export const testWords = (state: IWordTested[] = [], action: WordAction): IWordT
 }
 
 const LCCApp = combineReducers({
+    initialTimerValue,
     testStarted,
-    testTimer,
     testWords,
     words
 });

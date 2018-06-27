@@ -1,7 +1,7 @@
 import * as React from 'react';
+import Test from './containers/Test';
 import WordList from './containers/WordsList';
 import WordsNew from './containers/WordsNew';
-import Test from './Test';
 
 export interface IWordsProps {
     testStarted: boolean

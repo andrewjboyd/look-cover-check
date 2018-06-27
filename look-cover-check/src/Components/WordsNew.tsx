@@ -13,6 +13,7 @@ export default class WordsNew extends React.Component<IWordsNewProps, IWordsNewS
     constructor(props: IWordsNewProps) {
         super(props);
 
+        this.state = { newWord: '' };
         this.addClick = this.addClick.bind(this);
         this.newWordChange = this.newWordChange.bind(this);
     }
