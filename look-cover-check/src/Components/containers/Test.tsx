@@ -10,7 +10,7 @@ interface ITestActions {
 const mapStateToProps = (state: WordState) => {
     return {
         initialTimerValue: state.initialTimerValue,
-        words: state.testWords,
+        words: state.words,
     };
 };
 

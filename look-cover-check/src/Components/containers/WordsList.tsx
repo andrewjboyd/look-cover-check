@@ -9,7 +9,7 @@ interface IWordListActions {
 
 const mapStateToProps = (state: WordState) => {
     return {
-        words: state.testWords
+        words: state.words
     };
 };
 

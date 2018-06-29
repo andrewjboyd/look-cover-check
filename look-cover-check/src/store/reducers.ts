@@ -3,6 +3,23 @@ import { IWordAction, IWordSubmitAction } from './actions';
 import { TypeKeys } from './constants';
 import { IWordTested } from './WordState';
 
+export const words = (state: string[] = [], action: IWordAction): string[] => {
+    switch (action.type) {
+        case TypeKeys.ADD_WORD:
+            // Case insensitive search
+            const wordAlreadyExists = state.findIndex(w => w.toLocaleLowerCase() === action.word.toLocaleLowerCase()) > -1;            
+
+            if (!wordAlreadyExists) {
+                return [...state,
+                    action.word];
+            }
+            break;
+        case TypeKeys.REMOVE_WORD:
+            return state.filter(w => w !== action.word);
+    }
+    return state;
+}
+
 export const testStarted = (state: boolean = false, action: IWordSubmitAction) => {
     switch (action.type) {
         case TypeKeys.START_TEST:
@@ -13,24 +30,11 @@ export const testStarted = (state: boolean = false, action: IWordSubmitAction) =
     return state;
 }
 
-export const testWords = (state: IWordTested[] = [], action: IWordSubmitAction): IWordTested[] => {
+export const testResults = (state: IWordTested[] = [], action: IWordSubmitAction): IWordTested[] => {
     switch (action.type) {
-        case TypeKeys.ADD_WORD:
-            // Case insensitive search
-            const hasWord = state.findIndex(w => w.word.toLocaleLowerCase() === action.word.toLocaleLowerCase()) > -1;            
-
-            if (!hasWord) {
-                return [...state,
-                    { word: action.word, answer: ''}];
-            }
-            break;
-        case TypeKeys.REMOVE_WORD:
-            return state.filter(w => w.word !== action.word);
         case TypeKeys.SUBMIT_WORD:
-            const item = { answer: action.answer, word: action.word }
-            const wordIndex = state.findIndex(w => w.word === action.word);
-            state[wordIndex] = item;
-            break;
+            return [...state,
+                { answer: action.answer, word: action.word }];
     }
     return state;
 }
@@ -45,8 +49,9 @@ export const initialTimerValue = (state: number = 3, action: IWordAction) => {
 
 const LCCApp = combineReducers({
     initialTimerValue,
+    testResults,
     testStarted,
-    testWords,
+    words
 });
 
 export default LCCApp;

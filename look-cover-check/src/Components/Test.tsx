@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { TestStatus } from '../store/constants';
-import { IWordTested } from '../store/WordState';
 
 export interface ITestProps {
     initialTimerValue: number;
-    words: IWordTested[];
+    words: string[];
     submitWord: (word: string, answer: string, remainingWordCount: number) => void;
 }
 
 interface ITestState {
-    words: IWordTested[];
+    words: string[];
     timerValue: number;
     word: string;
     answer: string;
@@ -20,9 +19,9 @@ class Test extends React.Component<ITestProps, ITestState> {
     constructor(props: ITestProps) {
         super(props);
 
-        const word = props.words[this.randomIndex(props.words)].word;
+        const word = props.words[this.randomIndex(props.words.length)];
 
-        this.state = { timerValue: props.initialTimerValue, status: TestStatus.LOOK, words: props.words.filter(w => w.word !== word), word, answer: '' };
+        this.state = { timerValue: props.initialTimerValue, status: TestStatus.LOOK, words: props.words.filter(w => w !== word), word, answer: '' };
         this.decrementTimer = this.decrementTimer.bind(this);
         this.readyClick = this.readyClick.bind(this);
         this.wordChange = this.wordChange.bind(this);
@@ -75,22 +74,24 @@ class Test extends React.Component<ITestProps, ITestState> {
         });
     }
 
-    private randomIndex(words: IWordTested[])
+    private randomIndex(length: number)
     {
-        return Math.floor(Math.random() * words.length);
+        return Math.floor(Math.random() * length);
     }
 
     private checkClick() {
         this.props.submitWord(this.state.word, this.state.answer, this.state.words.length - 1);
 
-        const word = this.state.words[this.randomIndex(this.state.words)].word;
-        this.setState({            
-            answer: '',
-            status: TestStatus.LOOK,
-            timerValue: this.props.initialTimerValue,
-            word,
-            words: this.state.words.filter(w => w.word === word),
-        });
+        if (this.state.words.length > 1) {
+            const word = this.state.words[this.randomIndex(this.state.words.length)];
+            this.setState({            
+                answer: '',
+                status: TestStatus.LOOK,
+                timerValue: this.props.initialTimerValue,
+                word,
+                words: this.state.words.filter(w => w === word),
+            });
+        }
     }
 }
 

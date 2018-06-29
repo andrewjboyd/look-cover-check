@@ -3,7 +3,7 @@
     "errors": [],
     "testStarted": false,
     "initialTimerValue": 0,
-    "testWords": [
+    "testResults": [
         { "hello": "answer" }
     ]
 }

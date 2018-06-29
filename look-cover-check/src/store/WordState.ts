@@ -4,11 +4,13 @@ export interface IWordTested {
 }
 
 export default class WordState {
+    public words: string[];
     public testStarted: boolean;
-    public testWords: IWordTested[];
+    public testResults: IWordTested[];
     public initialTimerValue: number;
 
     constructor() {
-        this.testWords = [];
+        this.words = [];
+        this.testResults = [];
     }
 }

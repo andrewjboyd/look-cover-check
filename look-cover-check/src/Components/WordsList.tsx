@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { IWordTested } from '../store/WordState';
 import ActionButton from './containers/WordsListButton';
 
 export interface IWordListProps {
-    words: IWordTested[];
+    words: string[];
     onStartTest: () => void;
 }
 
@@ -21,7 +20,7 @@ export default class WordList extends React.Component<IWordListProps, {}> {
                 {this.props.words.map((word, idx) => {
                     return (
                         <li key={'word' + idx}
-                            className="list-group-item d-flex justify-content-between align-items-center list-group-item-action">{word.word} <ActionButton id={word.word} /></li>
+                            className="list-group-item d-flex justify-content-between align-items-center list-group-item-action">{word} <ActionButton id={word} /></li>
                     )
                 })}
             </ul>
