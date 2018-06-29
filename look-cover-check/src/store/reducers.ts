@@ -1,53 +1,23 @@
 import { combineReducers } from 'redux';
-import { WordAction } from './actions';
+import { IWordAction, IWordSubmitAction } from './actions';
 import { TypeKeys } from './constants';
 import { IWordTested } from './WordState';
 
-export const words = (state: string[] = [], action: WordAction) => {
-    switch (action.type) {
-        case TypeKeys.ADD_WORD:
-            const hasWord = state.some(w => w.toLocaleLowerCase() === action.word.toLocaleLowerCase())
-            if (!hasWord) {
-                return [...state,
-                    action.word
-                ];
-            }
-            break;
-        case TypeKeys.REMOVE_WORD:
-            return state.filter(w => w.toLocaleLowerCase() !== action.word.toLocaleLowerCase());
-    }
-    return state;
-}
-
-export const testStarted = (state: boolean = false, action: WordAction) => {
+export const testStarted = (state: boolean = false, action: IWordSubmitAction) => {
     switch (action.type) {
         case TypeKeys.START_TEST:
-            return true;             
+            return true;
+        case TypeKeys.SUBMIT_WORD:
+            return action.remainingWordCount > 0;
     }
     return state;
 }
 
-export const initialTimerValue = (state: number = 3, action: WordAction) => {
-    switch (action.type) {
-        case TypeKeys.START_TEST:
-            return 3;
-    }
-    return state;
-}
-
-export const testWords = (state: IWordTested[] = [], action: WordAction): IWordTested[] => {
+export const testWords = (state: IWordTested[] = [], action: IWordSubmitAction): IWordTested[] => {
     switch (action.type) {
         case TypeKeys.ADD_WORD:
-            let hasWord = false;
-            state.forEach(word => {
-                for (const key in word)
-                {
-                    if (key.toLocaleLowerCase() === action.word.toLocaleLowerCase())
-                    {
-                        hasWord = true;
-                    }
-                }
-            });
+            // Case insensitive search
+            const hasWord = state.findIndex(w => w.word.toLocaleLowerCase() === action.word.toLocaleLowerCase()) > -1;            
 
             if (!hasWord) {
                 return [...state,
@@ -55,7 +25,20 @@ export const testWords = (state: IWordTested[] = [], action: WordAction): IWordT
             }
             break;
         case TypeKeys.REMOVE_WORD:
-            return state.filter(w => w.word.toLocaleLowerCase() !== action.word.toLocaleLowerCase());;
+            return state.filter(w => w.word !== action.word);
+        case TypeKeys.SUBMIT_WORD:
+            const item = { answer: action.answer, word: action.word }
+            const wordIndex = state.findIndex(w => w.word === action.word);
+            state[wordIndex] = item;
+            break;
+    }
+    return state;
+}
+
+export const initialTimerValue = (state: number = 3, action: IWordAction) => {
+    switch (action.type) {
+        case TypeKeys.START_TEST:
+            return 3;
     }
     return state;
 }
@@ -64,7 +47,6 @@ const LCCApp = combineReducers({
     initialTimerValue,
     testStarted,
     testWords,
-    words
 });
 
 export default LCCApp;

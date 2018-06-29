@@ -1,19 +1,24 @@
 import { Action } from 'redux';
 import { TypeKeys } from './constants';
 
-export class WordAction implements Action {
-    public type: string;
-    public word: string;
+export interface IWordAction extends Action {
+    type: string;
+    word: string;
 }
 
-export function addWord(word: string): WordAction {
+export interface IWordSubmitAction extends IWordAction {
+    answer: string;
+    remainingWordCount: number
+}
+
+export function addWord(word: string): IWordAction {
     return {
         type: TypeKeys.ADD_WORD,
         word
     };
 }
 
-export function removeWord(word: string): WordAction {
+export function removeWord(word: string): IWordAction {
     return {
         type: TypeKeys.REMOVE_WORD,
         word
@@ -23,5 +28,14 @@ export function removeWord(word: string): WordAction {
 export function startTest() {
     return {
         type: TypeKeys.START_TEST
+    }
+}
+
+export function submitWord(word: string, answer: string, remainingWordCount: number): IWordSubmitAction {
+    return {
+        answer,
+        remainingWordCount,
+        type: TypeKeys.SUBMIT_WORD,
+        word,
     }
 }
