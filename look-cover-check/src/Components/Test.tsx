@@ -80,18 +80,16 @@ class Test extends React.Component<ITestProps, ITestState> {
     }
 
     private checkClick() {
-        this.props.submitWord(this.state.word, this.state.answer, this.state.words.length - 1);
+        this.props.submitWord(this.state.word, this.state.answer, this.state.words.length);
 
-        if (this.state.words.length > 1) {
-            const word = this.state.words[this.randomIndex(this.state.words.length)];
-            this.setState({            
-                answer: '',
-                status: TestStatus.LOOK,
-                timerValue: this.props.initialTimerValue,
-                word,
-                words: this.state.words.filter(w => w === word),
-            });
-        }
+        const word = this.state.words[this.randomIndex(this.state.words.length)];
+        this.setState({            
+            answer: '',
+            status: TestStatus.LOOK,
+            timerValue: this.props.initialTimerValue,
+            word,
+            words: this.state.words.filter(w => w === word),
+        });
     }
 }
 

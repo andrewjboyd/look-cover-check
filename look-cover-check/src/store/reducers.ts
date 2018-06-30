@@ -32,6 +32,8 @@ export const testStarted = (state: boolean = false, action: IWordSubmitAction) =
 
 export const testResults = (state: IWordTested[] = [], action: IWordSubmitAction): IWordTested[] => {
     switch (action.type) {
+        case TypeKeys.START_TEST:
+            return [];
         case TypeKeys.SUBMIT_WORD:
             return [...state,
                 { answer: action.answer, word: action.word }];

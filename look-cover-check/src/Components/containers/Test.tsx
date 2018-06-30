@@ -10,7 +10,7 @@ interface ITestActions {
 const mapStateToProps = (state: WordState) => {
     return {
         initialTimerValue: state.initialTimerValue,
-        words: state.words,
+        words: state.words.filter(w => state.testResults.findIndex(tr => tr.word.toLocaleLowerCase() === w.toLocaleLowerCase()) === -1),
     };
 };
 

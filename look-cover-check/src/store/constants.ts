@@ -13,3 +13,9 @@ export enum TestStatus {
     LOOK = 'LOOK',
     CHECK = 'CHECK',
 };
+
+export enum WordStatus {
+    WORD_INPUT = 'WORD_INPUT',
+    TEST_RUNNING = 'TEST_RUNNING',
+    TEST_RESULTS = 'TEST_RESULTS',
+}
