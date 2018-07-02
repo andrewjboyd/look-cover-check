@@ -4,7 +4,7 @@ import Words from '../Words';
 
 const mapStateToProps = (state: WordState) => {
     return {
-        testStarted: state.testStarted
+        wordStatus: state.wordStatus
     };
 };
 

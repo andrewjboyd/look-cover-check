@@ -1,9 +1,0 @@
-{
-    "words": ["hello", "world"],
-    "errors": [],
-    "testStarted": false,
-    "initialTimerValue": 0,
-    "testResults": [
-        { "hello": "answer" }
-    ]
-}

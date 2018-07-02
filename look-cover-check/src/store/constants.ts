@@ -6,7 +6,9 @@ export enum TypeKeys {
     // Start the test
     START_TEST = 'START_TEST',
     // Word submitted by user
-    SUBMIT_WORD = 'SUBMIT_WORD',
+    SUBMIT_ANSWER = 'SUBMIT_ANSWER',
+    // The test is completed
+    FINISH_TEST = 'FINISH_TEST',
 };
 
 export enum TestStatus {

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { IWordAction, IWordSubmitAction } from './actions';
-import { TypeKeys } from './constants';
+import { TypeKeys, WordStatus } from './constants';
 import { IWordTested } from './WordState';
 
 export const words = (state: string[] = [], action: IWordAction): string[] => {
@@ -20,12 +20,14 @@ export const words = (state: string[] = [], action: IWordAction): string[] => {
     return state;
 }
 
-export const testStarted = (state: boolean = false, action: IWordSubmitAction) => {
+export const wordStatus = (state: WordStatus = WordStatus.WORD_INPUT, action: IWordSubmitAction) => {
     switch (action.type) {
         case TypeKeys.START_TEST:
-            return true;
-        case TypeKeys.SUBMIT_WORD:
-            return action.remainingWordCount > 0;
+            return WordStatus.TEST_RUNNING;
+        case TypeKeys.SUBMIT_ANSWER:
+            return action.remainingWordCount > 0 ? WordStatus.TEST_RUNNING : WordStatus.TEST_RESULTS;
+        case TypeKeys.FINISH_TEST:
+            return WordStatus.WORD_INPUT;
     }
     return state;
 }
@@ -34,9 +36,11 @@ export const testResults = (state: IWordTested[] = [], action: IWordSubmitAction
     switch (action.type) {
         case TypeKeys.START_TEST:
             return [];
-        case TypeKeys.SUBMIT_WORD:
+        case TypeKeys.SUBMIT_ANSWER:
             return [...state,
                 { answer: action.answer, word: action.word }];
+        case TypeKeys.FINISH_TEST:
+            return [];
     }
     return state;
 }
@@ -52,7 +56,7 @@ export const initialTimerValue = (state: number = 3, action: IWordAction) => {
 const LCCApp = combineReducers({
     initialTimerValue,
     testResults,
-    testStarted,
+    wordStatus,
     words
 });
 

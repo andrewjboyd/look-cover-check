@@ -21,7 +21,7 @@ export default class WordsNew extends React.Component<IWordsNewProps, IWordsNewS
     public render() {
         return <div className="addRow">
             <form className="form-inline">
-                <input type="textbox" id="word" onChange={this.newWordChange} className="form-control" /> <button type="button" className="btn btn-secondary" onClick={this.addClick}>Add</button>
+                <input type="textbox" id="word" onChange={this.newWordChange} className="form-control" autoComplete="off" /> <button type="button" className="btn btn-secondary" onClick={this.addClick}>Add</button>
             </form>
         </div>;
     }

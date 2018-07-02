@@ -31,11 +31,17 @@ export function startTest() {
     }
 }
 
-export function submitWord(word: string, answer: string, remainingWordCount: number): IWordSubmitAction {
+export function finishTest() {
+    return {
+        type: TypeKeys.FINISH_TEST
+    }
+}
+
+export function submitAnswer(word: string, answer: string, remainingWordCount: number): IWordSubmitAction {
     return {
         answer,
         remainingWordCount,
-        type: TypeKeys.SUBMIT_WORD,
+        type: TypeKeys.SUBMIT_ANSWER,
         word,
     }
 }

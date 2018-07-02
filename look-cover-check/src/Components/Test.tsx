@@ -4,7 +4,7 @@ import { TestStatus } from '../store/constants';
 export interface ITestProps {
     initialTimerValue: number;
     words: string[];
-    submitWord: (word: string, answer: string, remainingWordCount: number) => void;
+    submitAnswer: (word: string, answer: string, remainingWordCount: number) => void;
 }
 
 interface ITestState {
@@ -53,7 +53,7 @@ class Test extends React.Component<ITestProps, ITestState> {
             default:
                 return <div>
                     <form className="form-inline">
-                        <input type="textbox" id="word" onChange={this.wordChange} className="form-control" /> <button type="button" className="btn btn-secondary" onClick={this.checkClick}>Check</button>
+                        <input type="textbox" id="word" onChange={this.wordChange} className="form-control" autoComplete="off" /> <button type="button" className="btn btn-secondary" onClick={this.checkClick}>Submit</button>
                     </form>
                 </div>;
         }
@@ -80,7 +80,7 @@ class Test extends React.Component<ITestProps, ITestState> {
     }
 
     private checkClick() {
-        this.props.submitWord(this.state.word, this.state.answer, this.state.words.length);
+        this.props.submitAnswer(this.state.word, this.state.answer, this.state.words.length);
 
         const word = this.state.words[this.randomIndex(this.state.words.length)];
         this.setState({            
@@ -88,7 +88,7 @@ class Test extends React.Component<ITestProps, ITestState> {
             status: TestStatus.LOOK,
             timerValue: this.props.initialTimerValue,
             word,
-            words: this.state.words.filter(w => w === word),
+            words: this.state.words.filter(w => w !== word),
         });
     }
 }

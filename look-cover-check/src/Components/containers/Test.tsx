@@ -1,10 +1,10 @@
 import { connect, Dispatch } from 'react-redux';
-import { submitWord } from '../../store/actions';
+import { submitAnswer } from '../../store/actions';
 import WordState from '../../store/WordState';
 import Test from '../Test';
 
 interface ITestActions {
-    submitWord: (word: string, answer: string, remainingWordCount: number) => void;
+    submitAnswer: (word: string, answer: string, remainingWordCount: number) => void;
 }
 
 const mapStateToProps = (state: WordState) => {
@@ -16,9 +16,9 @@ const mapStateToProps = (state: WordState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch): ITestActions => {
     return {
-        submitWord(word: string, answer: string, remainingWordCount: number) {
+        submitAnswer(word: string, answer: string, remainingWordCount: number) {
             dispatch(
-                submitWord(word, answer, remainingWordCount)
+                submitAnswer(word, answer, remainingWordCount)
             );
         }
     };

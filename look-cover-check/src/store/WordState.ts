@@ -1,3 +1,5 @@
+import { WordStatus } from './constants';
+
 export interface IWordTested {
     word: string;
     answer: string;
@@ -5,7 +7,7 @@ export interface IWordTested {
 
 export default class WordState {
     public words: string[];
-    public testStarted: boolean;
+    public wordStatus: WordStatus;
     public testResults: IWordTested[];
     public initialTimerValue: number;
 
