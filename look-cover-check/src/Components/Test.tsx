@@ -29,7 +29,9 @@ class Test extends React.Component<ITestProps, ITestState> {
     }
 
     public componentDidMount() {
-        setTimeout(this.decrementTimer, 1000);
+        if (this.state.timerValue > 0) {
+            setTimeout(this.decrementTimer, 1000);
+        }
     }
 
     public componentDidUpdate() {
@@ -40,7 +42,7 @@ class Test extends React.Component<ITestProps, ITestState> {
 
     public render() {
         if (this.state.timerValue > 0) {
-            return <div className="counter">{this.state.timerValue}</div>;
+            return <div className="counter"><span>{this.state.timerValue}</span></div>;
         }
 
         switch (this.state.status)
