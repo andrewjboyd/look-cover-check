@@ -48,14 +48,17 @@ class Test extends React.Component<ITestProps, ITestState> {
         switch (this.state.status)
         {
             case TestStatus.LOOK:
-                return <div>
+                return <div className="content">
+                        <p>Try to memorise the following word:</p>
                         <div className="look">{this.state.word}</div>
-                        <button type="button" onClick={this.readyClick} className="btn btn-primary btn-lg">I'm ready</button>
+                        <div><button type="button" onClick={this.readyClick} className="btn btn-primary btn-lg float-right">I'm ready</button></div>
                     </div>;
             default:
-                return <div>
-                    <form className="form-inline">
-                        <input type="textbox" id="word" onChange={this.wordChange} className="form-control" autoComplete="off" /> <button type="button" className="btn btn-secondary" onClick={this.checkClick}>Submit</button>
+                return <div className="content">
+                    <form className="form">
+                        <div><p>Please enter the word you were just asked to memorise:</p></div>
+                        <div><input type="textbox" id="word" onChange={this.wordChange} className="form-control" autoComplete="off" /></div>
+                        <div><button type="button" className="btn btn-primary btn-lg float-right" onClick={this.checkClick}>Submit</button></div>
                     </form>
                 </div>;
         }

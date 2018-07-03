@@ -18,6 +18,9 @@ body {
 .hover {
   cursor: pointer;
 }
+.look {
+  font-weight: bold;
+}
 .counter {
   display: -webkit-flexbox;
   display: -ms-flexbox;
