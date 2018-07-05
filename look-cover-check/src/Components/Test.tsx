@@ -25,7 +25,7 @@ class Test extends React.Component<ITestProps, ITestState> {
         this.decrementTimer = this.decrementTimer.bind(this);
         this.readyClick = this.readyClick.bind(this);
         this.wordChange = this.wordChange.bind(this);
-        this.checkClick = this.checkClick.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     public componentDidMount() {
@@ -55,12 +55,32 @@ class Test extends React.Component<ITestProps, ITestState> {
                     </div>;
             default:
                 return <div className="content">
-                    <form className="form">
-                        <div><p>Please enter the word you were just asked to memorise:</p></div>
-                        <div><input type="textbox" id="word" onChange={this.wordChange} className="form-control" autoComplete="off" /></div>
-                        <div><button type="button" className="btn btn-primary btn-lg float-right" onClick={this.checkClick}>Submit</button></div>
+                    <form onSubmit={this.onSubmit}>
+                        <div className="form-row">
+                            <div className="form-group">
+                                Please enter the word you were just asked to memorise:
+                                <input type="textbox" id="word" autoFocus={true} onChange={this.wordChange} className="form-control" autoComplete="off" required={true} />
+                            </div>
+                        </div>
+                        <button type="submit" className="btn btn-primary btn-lg float-right">Submit</button>
                     </form>
                 </div>;
+        }
+    }
+
+    private onSubmit(e: React.FormEvent<HTMLFormElement>) {
+        if (!e.isDefaultPrevented()) {
+            e.preventDefault();
+            this.props.submitAnswer(this.state.word, this.state.answer, this.state.words.length);
+
+            const word = this.state.words[this.randomIndex(this.state.words.length)];
+            this.setState({            
+                answer: '',
+                status: TestStatus.LOOK,
+                timerValue: this.props.initialTimerValue,
+                word,
+                words: this.state.words.filter(w => w !== word),
+            });
         }
     }
 
@@ -82,19 +102,6 @@ class Test extends React.Component<ITestProps, ITestState> {
     private randomIndex(length: number)
     {
         return Math.floor(Math.random() * length);
-    }
-
-    private checkClick() {
-        this.props.submitAnswer(this.state.word, this.state.answer, this.state.words.length);
-
-        const word = this.state.words[this.randomIndex(this.state.words.length)];
-        this.setState({            
-            answer: '',
-            status: TestStatus.LOOK,
-            timerValue: this.props.initialTimerValue,
-            word,
-            words: this.state.words.filter(w => w !== word),
-        });
     }
 }
 

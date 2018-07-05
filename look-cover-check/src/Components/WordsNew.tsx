@@ -14,20 +14,25 @@ export default class WordsNew extends React.Component<IWordsNewProps, IWordsNewS
         super(props);
 
         this.state = { newWord: '' };
-        this.addClick = this.addClick.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
         this.newWordChange = this.newWordChange.bind(this);
     }
 
     public render() {
         return <div className="addRow">
-            <form className="form-inline">
-                <input type="textbox" id="word" onChange={this.newWordChange} className="form-control" autoComplete="off" /> <button type="button" className="btn btn-secondary" onClick={this.addClick}>Add</button>
+            <form onSubmit={this.onSubmit}>
+                <div className="form-group">
+                    <div className="col-sm-5">Please enter the spelling words you wish to be tested on:</div>
+                    <div className="col-sm-5"><input type="textbox" id="word" autoFocus={true} onChange={this.newWordChange} className="form-control" autoComplete="off" required={true} /></div>
+                </div>
+                <div className="col-sm-2"><button type="submit" className="btn btn-secondary">Add</button></div>
             </form>
         </div>;
     }
 
-    private addClick(target: React.MouseEvent<HTMLElement>) {
-        if (this.props.onAdd) {
+    private onSubmit(e: React.FormEvent<HTMLFormElement>) {
+        if (!e.isDefaultPrevented()) {
+            e.preventDefault();
             this.props.onAdd(this.state.newWord);
         }
     }
