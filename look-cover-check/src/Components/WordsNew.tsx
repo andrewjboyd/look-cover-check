@@ -20,10 +20,10 @@ export default class WordsNew extends React.Component<IWordsNewProps, IWordsNewS
 
     public render() {
         return <div className="addRow">
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit} id="newForm">
                 <div className="form-group">
                     <div className="col-sm-5">Please enter the spelling words you wish to be tested on:</div>
-                    <div className="col-sm-5"><input type="textbox" id="word" autoFocus={true} onChange={this.newWordChange} className="form-control" autoComplete="off" required={true} /></div>
+                    <div className="col-sm-5"><input type="textbox" id="word" autoFocus={true} value={this.state.newWord} onChange={this.newWordChange} className="form-control" autoComplete="off" required={true} /></div>
                 </div>
                 <div className="col-sm-2"><button type="submit" className="btn btn-secondary">Add</button></div>
             </form>
@@ -34,6 +34,9 @@ export default class WordsNew extends React.Component<IWordsNewProps, IWordsNewS
         if (!e.isDefaultPrevented()) {
             e.preventDefault();
             this.props.onAdd(this.state.newWord);
+            this.setState({
+                newWord: ''
+            });
         }
     }
 
