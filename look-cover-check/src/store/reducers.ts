@@ -11,7 +11,7 @@ export const words = (state: string[] = [], action: IWordAction): string[] => {
 
             if (!wordAlreadyExists) {
                 return [...state,
-                    action.word];
+                    action.word.trim()];
             }
             break;
         case TypeKeys.REMOVE_WORD:

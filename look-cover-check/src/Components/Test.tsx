@@ -71,7 +71,7 @@ class Test extends React.Component<ITestProps, ITestState> {
     private onSubmit(e: React.FormEvent<HTMLFormElement>) {
         if (!e.isDefaultPrevented()) {
             e.preventDefault();
-            this.props.submitAnswer(this.state.word, this.state.answer, this.state.words.length);
+            this.props.submitAnswer(this.state.word, this.state.answer.trim(), this.state.words.length);
 
             const word = this.state.words[this.randomIndex(this.state.words.length)];
             this.setState({            
